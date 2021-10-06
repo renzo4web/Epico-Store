@@ -1,3 +1,5 @@
+import { Product } from "../types/Product.interface";
+
 const domain = process.env.SHOPIFY_STORE_DOMAIN;
 const storeFrontAccessToken = process.env.SHOPIFY_STOREFRONT_ACCESSTOKEN;
 
@@ -25,7 +27,7 @@ const ShopifyData = async (query) => {
   }
 };
 
-export const getProductsInCollection = async () => {
+export const getProductsInCollection = async (): Promise<Product[]> => {
   const query = `
     {
         collection(handle:"frontpage"){
