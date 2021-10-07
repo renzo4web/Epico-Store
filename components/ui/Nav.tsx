@@ -1,8 +1,14 @@
 import Link from "next/link";
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../reducers/rootReducer";
 import ToggleThemeBtn from "./ToggleThemeBtn";
 
 const Nav = () => {
+  const { cart } = useSelector((state: RootState) => state.checkout);
+
+  console.log(cart);
+
   return (
     <header className="sticky top-0 z-20  bg-purple-50 dark:bg-purple-900">
       <nav className="flex items-center justify-between max-w-6xl pt-4 pb-2 px-4 mx-auto lg:max-w-screen-xl">
@@ -13,7 +19,9 @@ const Nav = () => {
             </span>
           </a>
         </Link>
-        <a className="text-md font-bold cursor-pointer dark:text-white">Cart</a>
+        <a className="text-md font-bold cursor-pointer dark:text-white">
+          Cart({cart.length})
+        </a>
         <ToggleThemeBtn />
       </nav>
     </header>

@@ -1,4 +1,6 @@
 import { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+import { startAddToCart } from "../../actions/checkout";
 import { createCheckout } from "../../lib/shopify";
 import { Variants } from "../../types/ProductForm.interface";
 import { ProductProps, DataProduct } from "../../types/SingleProduct.interface";
@@ -14,6 +16,7 @@ const setDefaults = (product: DataProduct) => {
 };
 
 const ProductForm = ({ product }: ProductProps) => {
+  const dispatch = useDispatch();
   const allVariants = getProductVariants(product);
 
   const [selectedVariant, setSelectedVariant] = useState(allVariants[0]);
@@ -23,12 +26,23 @@ const ProductForm = ({ product }: ProductProps) => {
 
   const { variants, options } = product;
 
-  const setOptions = useCallback((name, value) => {
+  const setOptions = (name, value) => {
     setSelectedOptions((prev) => ({ ...prev, [name]: value }));
-  }, []);
+
+    const selection = {
+      ...selectedOptions,
+      [name]: value,
+    };
+
+    allVariants.map((item) => {
+      if (JSON.stringify(item.options) === JSON.stringify(selection)) {
+        setSelectedVariant(item);
+      }
+    });
+  };
 
   const handleClick = () => {
-    createCheckout(selectedVariant.id, selectedVariant.variantQuantity);
+    dispatch(startAddToCart(selectedVariant));
   };
 
   return (

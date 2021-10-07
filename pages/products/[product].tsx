@@ -3,7 +3,6 @@ import { getAllProducts, getProduct } from "../../lib/shopify";
 import { Data } from "../../types/SingleProduct.interface";
 
 const ProductPage = ({ product }: Data) => {
-  console.log(product);
   return (
     <div className="min-h-screen py-12 sm:pt-20">
       <ProductPageContent product={product} />
