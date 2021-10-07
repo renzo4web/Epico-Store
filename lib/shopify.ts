@@ -1,3 +1,4 @@
+import { Checkout } from "../types/Checkout.interface";
 import { Product as AllProducts } from "../types/Product.interface";
 import { ProductsPath, Products, Edge } from "../types/ProductsPath.interface";
 import { Product } from "../types/SingleProduct.interface";
@@ -164,4 +165,22 @@ export const getProduct = async (handle: string) => {
   const { product } = response.data;
 
   return product ? product : {};
+};
+
+export const createCheckout = async (id: string, quantity: number) => {
+  const query = `
+  mutation {
+    checkoutCreate(input: {lineItems: [{variantId: "${id}", quantity: ${quantity}}]}) {
+      checkout {
+        id
+        webUrl
+      }
+    }
+  }
+  `;
+
+  const response: Checkout = await ShopifyData(query);
+  const { checkout } = response.data.checkoutCreate;
+
+  return checkout ? checkout : [];
 };

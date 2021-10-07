@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import { createCheckout } from "../../lib/shopify";
 import { Variants } from "../../types/ProductForm.interface";
 import { ProductProps, DataProduct } from "../../types/SingleProduct.interface";
 import { formatter, getProductVariants } from "../../utils/helper";
@@ -26,6 +27,10 @@ const ProductForm = ({ product }: ProductProps) => {
     setSelectedOptions((prev) => ({ ...prev, [name]: value }));
   }, []);
 
+  const handleClick = () => {
+    createCheckout(selectedVariant.id, selectedVariant.variantQuantity);
+  };
+
   return (
     <div className="rounded2xl p-4 shadow-lg flex flex-col w-full md:1/3">
       <h2 className="text-3xl font-bold">{product.title}</h2>
@@ -42,7 +47,10 @@ const ProductForm = ({ product }: ProductProps) => {
         />
       ))}
 
-      <button className="bg-black dark:bg-green-400 text-white rounded-lg px-2 py-3 mt-4 hover:bg-gray-800">
+      <button
+        onClick={() => handleClick()}
+        className="bg-black dark:bg-green-400 text-white rounded-lg px-2 py-3 mt-4 hover:bg-gray-800"
+      >
         Add to Cart
       </button>
     </div>
