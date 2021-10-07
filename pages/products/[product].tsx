@@ -1,14 +1,10 @@
 import { ProductPageContent } from "../../components/product/ProductPageContent";
 import { getAllProducts, getProduct } from "../../lib/shopify";
-import { ProductClass } from "../../types/SingleProduct.interface";
+import { Data } from "../../types/SingleProduct.interface";
 
-interface Props {
-  product: ProductClass;
-}
-
-const ProductPage = ({ product }: Props) => {
+const ProductPage = ({ product }: Data) => {
   return (
-    <div>
+    <div className="min-h-screen py-12 sm:pt-20">
       <ProductPageContent product={product} />
     </div>
   );

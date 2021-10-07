@@ -5,9 +5,13 @@ export type themeOptions = "dark" | "light";
 type IToggleTheme = [colorTheme: themeOptions, setTheme: Dispatch<any>];
 
 function useToggleTheme(): IToggleTheme {
-  const [theme, setTheme] = useState(() =>
-    typeof window !== "undefined" ? localStorage.theme : "dark"
-  );
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== "undefined") {
+      const storageTheme = localStorage.getItem("theme");
+      return storageTheme ? storageTheme : "light";
+    }
+  });
+
   const colorTheme = theme === "dark" ? "light" : "dark";
 
   useEffect(() => {
@@ -18,6 +22,8 @@ function useToggleTheme(): IToggleTheme {
 
     if (typeof window !== "undefined") {
       localStorage.setItem("theme", theme);
+    } else {
+      localStorage.setItem("theme", "light");
     }
   }, [theme]);
 

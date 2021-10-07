@@ -20,7 +20,7 @@ const ToggleThemeBtn = () => {
         checked={enabled}
         onChange={handleChange}
         className={`${
-          enabled ? "bg-purple-900" : "bg-gray-200"
+          enabled ? "bg-purple-300" : "bg-gray-200"
         } relative inline-flex items-center h-6 rounded-full w-11`}
       >
         <span className="sr-only">Change color theme</span>

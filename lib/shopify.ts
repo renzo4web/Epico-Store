@@ -87,53 +87,78 @@ export const getAllProducts = async (): Promise<Edge[]> => {
 
 export const getProduct = async (handle: string) => {
   const query = `
-{
-  product(handle: "millionaire-in-the-waiting") {
-    id
-    handle
-    title
-    priceRange {
-      minVariantPrice {
-        amount
-      }
-    }
-    options {
-      id
-      name
-      values
-    }
-    variants(first: 25) {
-      edges {
-        node {
-          selectedOptions {
-            name
-            value
+  {
+    product(handle: "${handle}") {
+      collections(first: 1) {
+        edges {
+          node {
+            products(first: 5) {
+              edges {
+                node {
+                  priceRange {
+                    minVariantPrice {
+                      amount
+                    }
+                  }
+                  handle
+                  title
+                  id
+                  images(first: 5) {
+                    edges {
+                      node {
+                        originalSrc
+                        altText
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
-          image {
+        }
+      }
+      id
+      title
+      handle
+      description
+      images(first: 5) {
+        edges {
+          node {
             originalSrc
             altText
           }
-          title
-          id
-          priceV2 {
-            amount
+        }
+      }
+      options {
+        name
+        values
+        id
+      }
+      variants(first: 25) {
+        edges {
+          node {
+            selectedOptions {
+              name
+              value
+            }
+            product {
+              handle
+              title
+            }
+            image {
+              originalSrc
+              altText
+            }
+            title
+            id
+            priceV2 {
+              amount
+            }
           }
         }
       }
     }
-    images(first: 5) {
-      edges {
-        node {
-          originalSrc
-          altText
-        }
-      }
-    }
-  }
-}
-
-
-  `;
+  }`;
 
   const response: Product = await ShopifyData(query);
   const { product } = response.data;

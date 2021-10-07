@@ -4,7 +4,7 @@ import ToggleThemeBtn from "./ToggleThemeBtn";
 
 const Nav = () => {
   return (
-    <header className="border-b sticky top-0 z-20 dark:bg-orange">
+    <header className="sticky top-0 z-20  bg-purple-50 dark:bg-purple-900">
       <nav className="flex items-center justify-between max-w-6xl pt-4 pb-2 px-4 mx-auto lg:max-w-screen-xl">
         <Link href="/" passHref>
           <a className="cursor-pointer">

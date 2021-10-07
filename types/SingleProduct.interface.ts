@@ -3,16 +3,45 @@ export interface Product {
 }
 
 export interface Data {
-  product: ProductClass;
+  product: DataProduct;
 }
 
-export interface ProductClass {
+export interface DataProduct {
+  collections: Collections;
   id: string;
+  title: string;
   handle: string;
-  title: Title;
-  priceRange: PriceRange;
+  description: string;
+  images: Images;
   options: Option[];
   variants: Variants;
+}
+
+export interface Collections {
+  edges: CollectionsEdge[];
+}
+
+export interface CollectionsEdge {
+  node: PurpleNode;
+}
+
+export interface PurpleNode {
+  products: Products;
+}
+
+export interface Products {
+  edges: ProductsEdge[];
+}
+
+export interface ProductsEdge {
+  node: FluffyNode;
+}
+
+export interface FluffyNode {
+  priceRange: PriceRange;
+  handle: string;
+  title: string;
+  id: string;
   images: Images;
 }
 
@@ -26,30 +55,21 @@ export interface ImagesEdge {
 
 export interface ImageClass {
   originalSrc: string;
-  altText: Title;
-}
-
-export enum Title {
-  MillionaireInTheWaiting = "Millionaire in the Waiting",
-}
-
-export interface Option {
-  id: string;
-  name: Name;
-  values: string[];
-}
-
-export enum Name {
-  Color = "Color",
-  Size = "Size",
+  altText: string;
 }
 
 export interface PriceRange {
-  minVariantPrice: MinVariantPrice;
+  minVariantPrice: PriceV2;
 }
 
-export interface MinVariantPrice {
+export interface PriceV2 {
   amount: string;
+}
+
+export interface Option {
+  name: string;
+  values: string[];
+  id: string;
 }
 
 export interface Variants {
@@ -57,18 +77,28 @@ export interface Variants {
 }
 
 export interface VariantsEdge {
-  node: PurpleNode;
+  node: TentacledNode;
 }
 
-export interface PurpleNode {
+export interface TentacledNode {
   selectedOptions: SelectedOption[];
+  product: NodeProduct;
   image: ImageClass;
   title: string;
   id: string;
-  priceV2: MinVariantPrice;
+  priceV2: PriceV2;
+}
+
+export interface NodeProduct {
+  handle: string;
+  title: string;
 }
 
 export interface SelectedOption {
-  name: Name;
+  name: string;
   value: string;
+}
+
+export interface ProductProps {
+  product: DataProduct;
 }

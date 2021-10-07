@@ -17,7 +17,7 @@ const ProductCard = ({ product }: Props) => {
 
   return (
     <Link href={`/products/${handle}`}>
-      <a className="group ">
+      <a className="group">
         <div className="w-full bg-gray-200 rounded-3xl overflow-hidden">
           <div className="relative group-hover:opacity-75 h-72">
             <Image
@@ -29,7 +29,7 @@ const ProductCard = ({ product }: Props) => {
           </div>
         </div>
         <h3 className="mt-4 text-lg font-medium">{title}</h3>
-        <h4 className="">{formatter.format(Number(amount))}</h4>
+        <h4 className="font-medium">{formatter.format(Number(amount))}</h4>
       </a>
     </Link>
   );
