@@ -1,7 +1,7 @@
-import { CheckoutClass } from "../types/Checkout.interface";
+import { Variants } from "../types/ProductForm.interface";
 
 export interface CheckoutState {
-  cart: any[];
+  cart: Variants[];
   cartOpen: boolean;
   checkoutId: string | null;
   checkoutUrl: string | null;
@@ -29,13 +29,23 @@ export type SetCheckoutURL = {
   payload: string;
 };
 
+export type SetCartOpen = {
+  type: "TOGGLE_CART_OPEN";
+  payload?: boolean | null;
+};
+
 // Set cart from localstorage
 export type SetCart = {
   type: "SET_CART";
   payload: any;
 };
 
-type CheckoutActions = AddToCart | SetCheckoutId | SetCheckoutURL | SetCart;
+type CheckoutActions =
+  | AddToCart
+  | SetCheckoutId
+  | SetCheckoutURL
+  | SetCart
+  | SetCartOpen;
 
 export const checkoutReducer = (
   state: CheckoutState = initialState,
@@ -68,7 +78,11 @@ export const checkoutReducer = (
       return { ...state, checkoutUrl: payload };
 
     case "SET_CART":
+      console.log("objecPAYLOADt", payload);
       return { ...state, cart: [...payload] };
+
+    case "TOGGLE_CART_OPEN":
+      return { ...state, cartOpen: payload };
 
     default:
       return state;

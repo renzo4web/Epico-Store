@@ -12,5 +12,5 @@ export interface CheckoutCreate {
 
 export interface CheckoutClass {
   id: string;
-  webURL: string;
+  webUrl: string;
 }

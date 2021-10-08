@@ -1,13 +1,14 @@
 import Link from "next/link";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleCartOpen } from "../../actions/checkout";
 import { RootState } from "../../reducers/rootReducer";
+import Cart from "../Cart";
 import ToggleThemeBtn from "./ToggleThemeBtn";
 
 const Nav = () => {
-  const { cart } = useSelector((state: RootState) => state.checkout);
-
-  console.log(cart);
+  const dispatch = useDispatch();
+  const { cart, cartOpen } = useSelector((state: RootState) => state.checkout);
 
   return (
     <header className="sticky top-0 z-20  bg-purple-50 dark:bg-purple-900">
@@ -19,7 +20,10 @@ const Nav = () => {
             </span>
           </a>
         </Link>
-        <a className="text-md font-bold cursor-pointer dark:text-white">
+        <a
+          onClick={() => dispatch(toggleCartOpen(!cartOpen))}
+          className="text-md font-bold cursor-pointer dark:text-white"
+        >
           Cart({cart.length})
         </a>
         <ToggleThemeBtn />
