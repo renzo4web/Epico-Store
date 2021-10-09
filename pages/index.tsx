@@ -16,3 +16,6 @@ export async function getStaticProps() {
     props: { products },
   };
 }
+
+
+/* Copyright Renzo Barrios 2021. All Rights Reserved */

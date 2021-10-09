@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setCart, setCheckoutId, setCheckoutUrl } from "../actions/checkout";
-import Cart from "./Cart";
+import Cart from "./Cart/Cart";
 import Nav from "./ui/Nav";
 
 const Layout: React.FC = ({ children }) => {

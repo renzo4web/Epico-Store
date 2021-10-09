@@ -3,7 +3,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCartOpen } from "../../actions/checkout";
 import { RootState } from "../../reducers/rootReducer";
-import Cart from "../Cart";
 import ToggleThemeBtn from "./ToggleThemeBtn";
 
 const Nav = () => {
@@ -33,3 +32,4 @@ const Nav = () => {
 };
 
 export default Nav;
+

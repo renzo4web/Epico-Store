@@ -1,11 +1,13 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import Image from "next/image";
 import { Dialog, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../reducers/rootReducer";
-import { removeItem, toggleCartOpen } from "../actions/checkout";
-import { formatter } from "../utils/helper";
+
+import { RootState } from "../../reducers/rootReducer";
+import { removeItem, toggleCartOpen } from "../../actions/checkout";
+import { formatter } from "../../utils/helper";
+import CartCard from "./CartCard";
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -73,61 +75,28 @@ export default function Cart() {
 
                     <div className="mt-8">
                       <div className="flow-root">
-                        <ul
-                          role="list"
-                          className="-my-6 divide-y divide-gray-200"
-                        >
-                          {cart.map((product) => (
-                            <li key={product.id} className="py-6 flex">
-                              <div className="relative flex-shrink-0 w-24 h-24 border border-gray-200 rounded-md overflow-hidden">
-                                <Image
-                                  src={product.image}
-                                  alt={product.title}
-                                  layout="fill"
-                                  objectFit="cover"
-                                />
-                              </div>
-
-                              <div className="ml-4 flex-1 flex flex-col">
-                                <div>
-                                  <div className="flex justify-between text-base font-medium text-gray-900 dark:text-purple-50">
-                                    <h3>
-                                      <a href={`/products/${product.handle}`}>
-                                        {product.title}
-                                      </a>
-                                    </h3>
-                                    <p className="ml-4">
-                                      {formatter.format(
-                                        Number(product.variantPrice)
-                                      )}
-                                    </p>
-                                  </div>
-                                  <p className="mt-1 text-sm text-gray-500  dark:text-purple-100">
-                                    {product.variantTitle}
-                                  </p>
-                                </div>
-                                <div className="flex-1 flex items-end justify-between text-sm">
-                                  <p className="text-gray-500 dark:text-purple-300">
-                                    Qty {product.variantQuantity}
-                                  </p>
-
-                                  <div className="flex">
-                                    <button
-                                      onClick={() =>
-                                        dispatch(removeItem(product))
-                                      }
-                                      type="button"
-                                      className="font-medium 
-dark:text-purple-50 hover:text-purple-400 text-indigo-600"
-                                    >
-                                      Remove
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
+                        {cart.length > 0 ? (
+                          <ul
+                            role="list"
+                            className="-my-6 divide-y divide-gray-200"
+                          >
+                            {cart.map((product) => (
+                              <CartCard key={product.id} product={product} />
+                            ))}
+                          </ul>
+                        ) : (
+                          <div>
+                            <p>Nothing in your cart!</p>
+                            <button
+                              type="button"
+                              className="text-indigo-600 dark:text-green-400 font-medium hover:text-indigo-500"
+                              onClick={() => handleToggle(false)}
+                            >
+                              Continue Shopping
+                              <span aria-hidden="true"> &rarr;</span>
+                            </button>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

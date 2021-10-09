@@ -48,7 +48,7 @@ const ProductForm = ({ product }: ProductProps) => {
   return (
     <div className="rounded2xl p-4 shadow-lg flex flex-col w-full md:1/3">
       <h2 className="text-3xl font-bold">{product.title}</h2>
-      <strong className="pb-6 font-medium">
+      <strong className="pb-2 font-medium">
         {formatter.format(Number(variants.edges[0].node.priceV2.amount))}
       </strong>
       {options.map(({ name, values }) => (

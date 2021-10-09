@@ -7,7 +7,6 @@ import {
   SetCheckoutURL,
 } from "../reducers/checkoutReducer";
 import { RootState } from "../reducers/rootReducer";
-import { CheckoutClass } from "../types/Checkout.interface";
 
 export const startAddToCart = (newItem) => {
   return async (dispatch, getState) => {
