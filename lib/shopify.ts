@@ -1,4 +1,6 @@
+import { Checkout, CheckoutClass } from "../types/Checkout.interface";
 import { Product as AllProducts } from "../types/Product.interface";
+import { Variants } from "../types/ProductForm.interface";
 import { ProductsPath, Products, Edge } from "../types/ProductsPath.interface";
 import { Product } from "../types/SingleProduct.interface";
 
@@ -164,4 +166,50 @@ export const getProduct = async (handle: string) => {
   const { product } = response.data;
 
   return product ? product : {};
+};
+
+export const createCheckout = async (
+  id: string,
+  quantity: number
+): Promise<CheckoutClass> => {
+  const query = `
+  mutation {
+    checkoutCreate(input: {lineItems: [{variantId: "${id}", quantity: ${quantity}}]}) {
+      checkout {
+        id
+        webUrl
+      }
+    }
+  }
+  `;
+
+  const response: Checkout = await ShopifyData(query);
+  const { checkout } = response.data.checkoutCreate;
+
+  return checkout ? checkout : { id: null, webUrl: null };
+};
+
+export const updateCheckout = async (
+  id: string,
+  lineItems: Variants[]
+): Promise<CheckoutClass> => {
+  const lineItemsObject = lineItems.map(
+    (item) => `{variantId:"${item.id}",quantity:${item.variantQuantity} }`
+  );
+
+  const query = `
+  mutation {
+    checkoutLineItemsReplace(lineItems: [${lineItemsObject}], checkoutId: "${id}" ) {
+      checkout {
+        webUrl
+        id
+      }
+    }
+  }`;
+
+  const response = await ShopifyData(query);
+  const { checkout }: { checkout: CheckoutClass } =
+    response.data.checkoutLineItemsReplace;
+
+  return checkout ? checkout : { id: null, webUrl: null };
 };
