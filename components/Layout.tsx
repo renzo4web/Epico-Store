@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { setCart, setCheckoutId, setCheckoutUrl } from "../actions/checkout";
 import Cart from "./Cart/Cart";
 import Nav from "./ui/Nav";
+import Footer from "./Footer";
 
 const Layout: React.FC = ({ children }) => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const Layout: React.FC = ({ children }) => {
       <Cart />
       <Nav />
       <main>{children}</main>
+      <Footer />
     </div>
   );
 };
