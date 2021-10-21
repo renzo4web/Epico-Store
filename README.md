@@ -10,4 +10,6 @@ NextJS + Shopify + Typescript practice for future web3 marketplace
 Preview the example live on [Epic Store](https://epic-store.vercel.app/):
 
 
+ Copyright 2021, Renzo Barrios, All rights reserved.
+
 
